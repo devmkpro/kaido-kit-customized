@@ -47,13 +47,16 @@ class UserResource extends Resource
                 Section::make(
                     'User Information'
                 )->schema([
-                            TextInput::make('name')
-                                ->required(),
-                            TextInput::make('email')
-                                ->required(),
-                            TextInput::make('password')
-                                ->required(),
-                        ]),
+                    TextInput::make('name')
+                        ->label(__('Name'))
+                        ->required(),
+                    TextInput::make('email')
+                        ->label(__('Email'))
+                        ->required(),
+                    TextInput::make('password')
+                        ->label(__('Password'))
+                        ->required(),
+                ]),
             ]);
     }
 
