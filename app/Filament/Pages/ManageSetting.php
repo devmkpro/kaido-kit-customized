@@ -18,40 +18,36 @@ class ManageSetting extends SettingsPage
 
     protected static string $settings = KaidoSetting::class;
 
-    protected static ?string $navigationGroup = null;
+    protected static ?string $navigationGroup = 'Settings';
 
-    public static function getNavigationGroup(): ?string
-    {
-        return __('Settings');
-    }
 
     public static function getModelLabel(): string
     {
-        return __('Settings');
+        return __('Site Settings');
     }
 
     
     public static function getNavigationLabel(): string
     {
-        return __('Settings');
+        return __('Site Settings');
     }
     
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Site Information')->columns(1)->schema([
+                Section::make(__('Site Information'))->columns(1)->schema([
                     TextInput::make('site_name')
-                        ->label('Site Name')
+                        ->label(__('Site Name'))
                         ->required(),
                     Toggle::make('site_active')
-                        ->label('Site Active'),
+                        ->label(__('Site Active')),
                     Toggle::make('registration_enabled')
-                        ->label('Registration Enabled'),
+                        ->label(__('Registration Enabled')),
                     Toggle::make('password_reset_enabled')
-                        ->label('Password Reset Enabled'),
+                        ->label(__('Password Reset Enabled')),
                     Toggle::make('sso_enabled')
-                        ->label('SSO Enabled'),
+                        ->label(__('SSO Enabled')),
                 ]),
             ]);
     }

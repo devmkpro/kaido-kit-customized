@@ -161,6 +161,16 @@
   "Photo": "Foto",
   "Users" : "Usuários",
   "Set Role" : "Definir Função",
-  "Settings" : "Configurações"
+  "Settings" : "Configurações",
+  "User" : "Usuário",
+  "Site Settings" : "Configuração do Site",
+  "Site Name" : "Nome do Site",
+  "Site Active" : "Site Ativo",
+  "SSO Enabled" : "SSO Habilitado",
+  "Registration Enabled" : "Registro Habilitado",
+  "Password Reset Enabled" : "Redefinição de Senha Habilitada",
+  "Site Information" : "Informação do Site",
+  "Manage Setting" : "Gerenciar Configuração",
+  "Themes" : "Temas" 
 
 }
