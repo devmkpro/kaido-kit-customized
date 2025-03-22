@@ -18,9 +18,20 @@ class ManageSetting extends SettingsPage
 
     protected static string $settings = KaidoSetting::class;
 
-    protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $navigationGroup = null;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
+    }
 
     public static function getModelLabel(): string
+    {
+        return __('Settings');
+    }
+
+    
+    public static function getNavigationLabel(): string
     {
         return __('Settings');
     }

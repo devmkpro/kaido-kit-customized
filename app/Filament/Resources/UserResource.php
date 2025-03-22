@@ -21,7 +21,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\UserResource\Pages;
-use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 use Filament\Infolists\Components\Section as InfolistSection;
 
 class UserResource extends Resource
@@ -29,6 +28,17 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Users');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Users');
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -98,9 +108,11 @@ class UserResource extends Resource
                             ->required()
                             ->searchable()
                             ->preload()
+                            ->label(__('Role'))
                             ->optionsLimit(10)
                             ->getOptionLabelFromRecordUsing(fn($record) => $record->name),
-                    ]),
+                    ])
+                    ->label(__('Set Role')),
                 // Impersonate::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
