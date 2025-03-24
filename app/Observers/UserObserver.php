@@ -52,7 +52,12 @@ class UserObserver
      */
     public function restored(User $user): void
     {
-        //
+        $recepient = Auth::user();
+        Notification::make()
+            ->title('User Restored')
+            ->body('User ' . $user->name . ' has been restored.')
+            ->success()
+            ->sendToDatabase($recepient);
     }
 
     /**
@@ -60,6 +65,11 @@ class UserObserver
      */
     public function forceDeleted(User $user): void
     {
-        //
+        $recepient = Auth::user();
+        Notification::make()
+            ->title('User Force Deleted')
+            ->body('User ' . $user->name . ' has been force deleted.')
+            ->success()
+            ->sendToDatabase($recepient);
     }
 }
