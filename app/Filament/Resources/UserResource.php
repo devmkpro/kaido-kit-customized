@@ -22,6 +22,10 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Tables\Actions\ExportBulkAction;
 use App\Filament\Resources\UserResource\Pages;
 use Filament\Infolists\Components\Section as InfolistSection;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class UserResource extends Resource
 {
@@ -38,6 +42,14 @@ class UserResource extends Resource
     {
         return __('Users');
     }
+
+    
+    public static function getEloquentQuery(): Builder
+    {
+        return static::getModel()::query()
+            ->with(['roles'])
+            ->withoutGlobalScopes();
+        }
 
 
     public static function form(Form $form): Form
@@ -58,11 +70,6 @@ class UserResource extends Resource
                         ->required(),
                 ]),
             ]);
-    }
-
-    public static function canCreate(): bool
-    {
-        return true;
     }
 
     public static function table(Table $table): Table
@@ -88,6 +95,7 @@ class UserResource extends Resource
                         Tables\Columns\TextColumn::make('email')
                             ->icon('heroicon-m-envelope')
                             ->searchable()
+                            ->copyable()
                             ->grow(false),
                     ])->alignStart()->visibleFrom('lg')->space(1)
                 ]),
@@ -100,6 +108,7 @@ class UserResource extends Resource
                     ->preload(),
             ])
             ->actions([
+                RestoreAction::make(),
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Action::make('Set Role')
@@ -128,11 +137,13 @@ class UserResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+
                 ]),
                 ExportBulkAction::make()
                     ->exporter(UserExporter::class)
             ]);
-    }
+        }   
 
     public static function getRelations(): array
     {
