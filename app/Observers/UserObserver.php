@@ -13,12 +13,17 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        $recepient = Auth::user();
-        Notification::make()
-            ->title('User Created')
-            ->body('A new user has been created: ' . $user->name)
-            ->success()
-            ->sendToDatabase($recepient);
+        // Check if there's a valid user to send the notification to
+        $adminUsers = User::whereHas('roles', function ($query) {
+            $query->where('name', 'super_admin');
+        })->get();
+
+        if ($adminUsers->count() > 0) {
+            Notification::make()
+                ->title('New user registered')
+                ->body('User ' . $user->name . ' has registered')
+                ->sendToDatabase($adminUsers);
+        }
     }
 
     /**
