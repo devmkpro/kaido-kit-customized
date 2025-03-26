@@ -142,7 +142,7 @@ class UserResource extends Resource
                 ]),
                 ExportBulkAction::make()
                     ->exporter(UserExporter::class)
-            ]);
+            ])->poll('5s');
         }   
 
     public static function getRelations(): array
